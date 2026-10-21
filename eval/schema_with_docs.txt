@@ -1,0 +1,42 @@
+         table_name          |             column_name             | data_type |                                                                         description                                                                          
+-----------------------------+-------------------------------------+-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+ dim_district                | district_code                       | text      | 7-character district code as text with leading zeros, e.g. '0801901'.
+ dim_district                | district_number                     | integer   | District number 1-10.
+ dim_district                | district_name                       | text      | District name.
+ fct_cpi_annual              | year                                | integer   | Calendar year.
+ fct_cpi_annual              | months_available                    | bigint    | Number of monthly CPI values averaged into cpi_avg for that year.
+ fct_cpi_annual              | cpi_avg                             | numeric   | Average of the monthly CPI index for the year (INE original base).
+ fct_income_district         | district_code                       | text      | 7-character district code as text with leading zeros, e.g. '0801901'. Joins to dim_district.
+ fct_income_district         | year                                | integer   | Calendar year.
+ fct_income_district         | income_eur                          | numeric   | Average net household income per year, in EUR.
+ fct_income_district         | income_cu_mean_eur                  | numeric   | Mean net income per consumption unit, in EUR.
+ fct_income_district         | income_cu_median_eur                | numeric   | Median net income per consumption unit, in EUR.
+ fct_rent_index              | district_code                       | text      | 7-character district code as text. Joins to dim_district.
+ fct_rent_index              | year                                | integer   | Calendar year.
+ fct_rent_index              | rent_index                          | numeric   | INE rent price index, 2015 = 100 (nominal, not inflation-adjusted).
+ fct_rent_index              | rent_annual_variation_pct           | numeric   | Year-over-year change of the INE rent index, in percent (2.0 means 2%, not 0.02).
+ fct_rent_serpavi            | district_code                       | text      | 7-character district code as text. Joins to dim_district.
+ fct_rent_serpavi            | year                                | integer   | Calendar year.
+ fct_rent_serpavi            | rent_eur_month_median               | numeric   | Median monthly rent in EUR.
+ fct_rent_serpavi            | rent_eur_m2_median                  | numeric   | Median monthly rent per square metre, in EUR/m2.
+ fct_rent_serpavi            | lease_count                         | numeric   | Number of leases the figures are based on.
+ mart_district_affordability | district_code                       | text      | 7-character district code as text with leading zeros. Always quote it in filters.
+ mart_district_affordability | district_name                       | text      | District name, e.g. 'Ciutat Vella', 'Eixample'.
+ mart_district_affordability | year                                | integer   | Calendar year, 2015-2023.
+ mart_district_affordability | income_eur                          | numeric   | Average net household income per year, in EUR (nominal).
+ mart_district_affordability | rent_eur_month                      | numeric   | Median monthly rent in EUR from SERPAVI (nominal). Default meaning of 'rent'.
+ mart_district_affordability | rent_eur_m2_median                  | numeric   | Median monthly rent per m2 in EUR/m2 (nominal). Use only when the question says per m2 / square metre.
+ mart_district_affordability | lease_count                         | numeric   | Number of leases behind the SERPAVI rent figures.
+ mart_district_affordability | rent_to_income_ratio                | numeric   | Annual rent / annual household income = rent_eur_month * 12 / income_eur. Default affordability measure; higher means less affordable. Fraction, 0.31 = 31%.
+ mart_district_affordability | income_median_to_mean               | numeric   | Ratio of median to mean income (below 1 means a skewed distribution).
+ mart_district_affordability | income_median_adj_eur_est           | numeric   | ESTIMATE of median household income = income_eur * income_median_to_mean. Not a measured value.
+ mart_district_affordability | rent_to_income_ratio_median_adj_est | numeric   | Affordability ratio using the estimated median income instead of mean income. Use only when the question asks about median income.
+ mart_district_affordability | ine_rent_index                      | numeric   | INE rent price index, 2015 = 100 (nominal).
+ mart_district_affordability | cpi_index_2015_100                  | numeric   | Spanish CPI rebased so 2015 = 100. Used to deflate nominal values.
+ mart_district_affordability | income_index_nominal                | numeric   | Income relative to 2015 (2015 = 100), nominal.
+ mart_district_affordability | rent_index_nominal                  | numeric   | SERPAVI rent relative to 2015 (2015 = 100), nominal.
+ mart_district_affordability | income_index_real                   | numeric   | Income index adjusted for inflation (nominal index / (cpi_index_2015_100/100)). Use for 'real' or 'inflation-adjusted' income growth.
+ mart_district_affordability | rent_index_real                     | numeric   | SERPAVI rent index adjusted for inflation, 2015 = 100. Use for 'real' rent growth.
+ mart_district_affordability | ine_rent_index_real                 | numeric   | INE rent index adjusted for inflation, 2015 = 100.
+(38 rows)
+

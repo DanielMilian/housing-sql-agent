@@ -1,0 +1,14 @@
+ district_code |    district_name    
+---------------+---------------------
+ 0801901       | Ciutat Vella
+ 0801902       | Eixample
+ 0801903       | Sants-Montjuïc
+ 0801904       | Les Corts
+ 0801905       | Sarrià-Sant Gervasi
+ 0801906       | Gràcia
+ 0801907       | Horta-Guinardó
+ 0801908       | Nou Barris
+ 0801909       | Sant Andreu
+ 0801910       | Sant Martí
+(10 rows)
+
